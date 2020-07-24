@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { CusTable } from '../items/CusTable';
 import * as Methods from '../../Methods'
 
 export function MaterialPage() {
     const baseUrl = "MaterialInfo";
-    const [columns, setColumns] = useState([]);
+    const [tableColumns, setTableColumns] = useState([]);
 
     let getDataCallback = (callback) => {
 
@@ -14,30 +14,12 @@ export function MaterialPage() {
             page: 0,
             search: "",
         };
-
-        Methods.cusFetchJson('companyInfo?pageSize=999999&pageIndex=0&searchText=',
-            result => {
-                let firstItem = result.data[0];
-                let obj = {};
-                for (let datum of result.data) {
-
-                    obj[datum.uid] = datum.name;
-                }
-                setColumns([
-                    { title: '公司', field: 'companyUid', type: 'select', selectList: obj, initialEditValue: firstItem.uid, emptyValue: firstItem.uid },
-                    { title: '名稱', field: 'name', initialEditValue: '-', emptyValue: '' },
-                    { title: '規格1', field: 'spec1', initialEditValue: '-', emptyValue: '' },
-                    { title: '規格2', field: 'spec2', initialEditValue: '-', emptyValue: '' },
-                    { title: '類型', field: 'type', initialEditValue: '-', emptyValue: '' },
-                    { title: '單位', field: 'unit', initialEditValue: '-', emptyValue: '' },
-                    { title: '價格', field: 'price', type: 'numeric', initialEditValue: '0', emptyValue: '0' },
-                ]);
-
-                let url = baseUrl + '?pageSize=' + query.pageSize + '&pageIndex=' + query.page + '&searchText=' + query.search;
-                Methods.cusFetchJson(url,
-                    (result2) => {
-                        callback(result2.data);
-                    });
+        let url = baseUrl + '?'
+            + 'pageSize=' + query.pageSize
+            + '&pageIndex=' + query.page + '&searchText=' + query.search;
+        Methods.cusFetchJson(url,
+            (result) => {
+                callback(result.data);
             });
     };
     let editActions = {
@@ -55,11 +37,47 @@ export function MaterialPage() {
         },
     };
 
+    useEffect(() => {
+        Methods.cusFetchJson('companyInfo?pageSize=999999&pageIndex=0&searchText=',
+            result => {
+                if (result.data.length >= 0) {
+
+                    let companies = {};
+                    for (let datum of result.data) {
+
+                        companies[datum.uid] = datum.name;
+                    }
+                    let firstItemUid = result.data[0].uid;
+
+                    setTableColumns([
+                        {
+                            title: '公司', field: 'companyUid', type: 'select', selectList: companies,
+                            initialEditValue: firstItemUid, emptyValue: firstItemUid
+                        },
+                        { title: '名稱', field: 'name', initialEditValue: '-', emptyValue: '' },
+                        { title: '規格1', field: 'spec1', initialEditValue: '-', emptyValue: '' },
+                        { title: '規格2', field: 'spec2', initialEditValue: '-', emptyValue: '' },
+                        { title: '類型', field: 'type', initialEditValue: '-', emptyValue: '' },
+                        { title: '單位', field: 'unit', initialEditValue: '-', emptyValue: '' },
+                        {
+                            title: '價格', field: 'price', type: 'numeric',
+                            initialEditValue: '0', emptyValue: '0'
+                        },
+                    ]);
+                }
+            });
+    }, []);
 
     return (
         <React.Fragment>
             <h2>產品</h2>
-            <CusTable columns={columns} getDataCallback={getDataCallback} editActions={editActions} ></CusTable>
+            {(tableColumns.length <= 0)
+                ?
+                <React.Fragment>無公司資料，請於公司頁面新增</React.Fragment>
+                :
+                <CusTable columns={tableColumns} getDataCallback={getDataCallback} editActions={editActions} ></CusTable>
+            }
         </React.Fragment>
     );
 }
+
