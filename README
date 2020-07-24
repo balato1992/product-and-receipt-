@@ -30,9 +30,15 @@ TO-DO:
     處理 Can't perform a React state update on an unmounted component
 
     table
+        V search
+        V sort
+        V page
         merge detail 
             search
     implement recipe page
+    implement recipe page
+        V BUG: 修改項目後 的刷新 非即時資料
+		整理 detail 程式碼
         日期欄位
         介面調整 (按鈕改圖案)
         搜尋功能
