@@ -7,12 +7,13 @@ namespace product_and_receipt.Models.DBs.Tables
 {
     public class CompanyTable : SqlHelper
     {
-        private static string TABLE => "COMPANY_INFO";
+        public static string TABLE => "COMPANY_INFO";
         private static string FIELD_UID => "UID";
         private static string FIELD_NAME => "NAME";
         private static string FIELD_ADDRESS => "ADDRESS";
         private static string FIELD_TELEPHONE => "TELEPHONE";
         private static string FIELD_FAX => "FAX";
+        public static string FIELD_REMARK => "REMARK";
         private static List<string> SEARCH_FIELDS => new List<string>()
         {
             FIELD_NAME,
