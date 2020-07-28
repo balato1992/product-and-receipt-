@@ -4,7 +4,9 @@
     {
         public int Uid { get; set; }
 
-        public CompanyDatumWithUid(int uid, string name, string address, string telephone, string fax) : base(name, address, telephone, fax)
+        public CompanyDatumWithUid(int uid, string name, string address,
+            string telephone, string fax, string remark)
+            : base(name, address, telephone, fax, remark)
         {
             Uid = uid;
         }

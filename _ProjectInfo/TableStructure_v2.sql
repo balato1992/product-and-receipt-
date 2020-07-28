@@ -1,5 +1,5 @@
 CREATE TABLE [dbo].[DB_INFO] (
-  [DATA] varchar(255) COLLATE Chinese_Taiwan_Stroke_CI_AS  NULL
+  [DATA] varchar(255) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL
 );
 INSERT INTO [dbo].[DB_INFO] (DATA) VALUES ('v2');
-ALTER TABLE COMPANY_INFO ADD REMARK varchar(255);
+ALTER TABLE COMPANY_INFO ADD REMARK varchar(255) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL;

@@ -6,10 +6,11 @@ import * as Methods from '../../Methods'
 export function CompanyPage() {
 
     let columns = [
-        { title: '名稱', field: 'name', initialEditValue: '-', emptyValue: '' },
-        { title: '地址', field: 'address', initialEditValue: '-', emptyValue: '' },
-        { title: '電話', field: 'telephone', initialEditValue: '-', emptyValue: '' },
-        { title: '傳真', field: 'fax', initialEditValue: '-', emptyValue: '' },
+        { title: '名稱', field: 'name', initialEditValue: '', emptyValue: '' },
+        { title: '地址', field: 'address', initialEditValue: '', emptyValue: '' },
+        { title: '電話', field: 'telephone', initialEditValue: '', emptyValue: '' },
+        { title: '傳真', field: 'fax', initialEditValue: '', emptyValue: '' },
+        { title: '備註', field: 'remark', initialEditValue: '', emptyValue: '' },
     ];
     let getDataCallback = (callback) => {
 

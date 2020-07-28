@@ -19,7 +19,8 @@ namespace product_and_receipt.Models.DBs.Tables
             FIELD_NAME,
             FIELD_ADDRESS,
             FIELD_TELEPHONE,
-            FIELD_FAX
+            FIELD_FAX,
+            FIELD_REMARK
         };
 
         public CompanyTable(string connectionString, LogFunc log = null) : base(connectionString, log)
@@ -81,19 +82,23 @@ namespace product_and_receipt.Models.DBs.Tables
             ConvertToString(reader[prefix + FIELD_ADDRESS], out string address);
             ConvertToString(reader[prefix + FIELD_TELEPHONE], out string telephone);
             ConvertToString(reader[prefix + FIELD_FAX], out string fax);
+            ConvertToString(reader[prefix + FIELD_REMARK], out string remark);
 
-            return new CompanyDatumWithUid(uid, name, address, telephone, fax);
+            return new CompanyDatumWithUid(uid, name, address, telephone, fax, remark);
         }
 
         public void Insert(CompanyDatum datum)
         {
-            DoExecuteNonQuery($"INSERT INTO {TABLE} ({FIELD_NAME}, {FIELD_ADDRESS}, {FIELD_TELEPHONE}, {FIELD_FAX}) VALUES (?, ?, ?, ?)",
-                datum.Name, datum.Address, datum.Telephone, datum.Fax);
+            DoExecuteNonQuery(
+                $"INSERT INTO {TABLE} ({FIELD_NAME}, {FIELD_ADDRESS}, {FIELD_TELEPHONE}, "
+                + $" {FIELD_FAX}, {FIELD_REMARK}) VALUES (?, ?, ?, ?, ?)",
+                datum.Name, datum.Address, datum.Telephone, datum.Fax, datum.Remark);
         }
         public void Update(CompanyDatumWithUid datum)
         {
-            DoExecuteNonQuery($"UPDATE {TABLE} SET {FIELD_NAME}=?,{FIELD_ADDRESS}=?,{FIELD_TELEPHONE}=?,{FIELD_FAX}=? WHERE {FIELD_UID}=?",
-                datum.Name, datum.Address, datum.Telephone, datum.Fax, datum.Uid);
+            DoExecuteNonQuery($"UPDATE {TABLE} SET {FIELD_NAME}=?, {FIELD_ADDRESS}=?, "
+                + $"{FIELD_TELEPHONE}=? ,{FIELD_FAX}=? ,{FIELD_REMARK}=? WHERE {FIELD_UID}=?",
+                datum.Name, datum.Address, datum.Telephone, datum.Fax, datum.Remark, datum.Uid);
         }
         public void Delete(int uid)
         {

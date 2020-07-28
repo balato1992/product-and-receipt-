@@ -62,24 +62,34 @@ export function CusTableRow(props) {
 
     const [showReceiptDetail, setShowReceiptDetail] = useState(false);
 
+    function splitStringToView(value) {
+        if (value == null) {
+            return null;
+        }
+
+        return value.split('\n').map((item, key) => {
+            return <React.Fragment key={key}>{item}<br /></React.Fragment>
+        });
+    }
     function getView_TextField(isEditing, column, datum) {
 
         if (!isEditing) {
             switch (column.type) {
+                case 'date':
+                    return <InputBase type="datetime-local" value={datum[column.field]}
+                        disabled className="color-black" />;
                 case 'select':
                     return <React.Fragment>{column.selectList[datum[column.field]]}</React.Fragment>;
-                case 'date':
-                    return <InputBase type="datetime-local" value={datum[column.field]} disabled className="color-black" />;
+                case 'numeric':
                 default:
-                    return <React.Fragment>{datum[column.field]}</React.Fragment>;
+                    return splitStringToView(datum[column.field]);
             }
         }
         else {
             switch (column.type) {
-                case 'numeric':
-                    return <TextField fullWidth name={column.field} type="number" defaultValue={datum[column.field]} onChange={handleChange} />;
                 case 'date':
-                    return <TextField fullWidth name={column.field} type="datetime-local" defaultValue={datum[column.field]} onChange={handleChange} />;
+                    return <TextField fullWidth name={column.field} type="datetime-local"
+                        defaultValue={datum[column.field]} onChange={handleChange} />;
                 case 'select':
                     return <Select name={column.field} value={datum[column.field]} onChange={handleChange} >
                         {Object.keys(column.selectList).map(function (key) {
@@ -88,8 +98,12 @@ export function CusTableRow(props) {
                             return <MenuItem key={key} value={key}>{name}</MenuItem>;
                         })}
                     </Select>;
+                case 'numeric':
+                    return <TextField fullWidth name={column.field} type="number"
+                        defaultValue={datum[column.field]} onChange={handleChange} />;
                 default:
-                    return <TextField fullWidth name={column.field} defaultValue={datum[column.field]} onChange={handleChange} />;
+                    return <TextField fullWidth multiline name={column.field}
+                        defaultValue={datum[column.field]} onChange={handleChange} />;
             }
         }
     }

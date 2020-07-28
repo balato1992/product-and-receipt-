@@ -1,7 +1,6 @@
 
 # TODO 
 
-  - [ ] 公司新增備註
   - [ ] 提示歷史字串
   - [ ] 字元提示收據項目
   - [ ] 日期格式改為文字
@@ -25,7 +24,10 @@
   - [x] page
   - [ ] merge detail 
   - [x] search
-
+  
+## Company Page
+  - [X] Add 'Remark' Field
+  - [X] text fields transform to multiline
 ## Material Page
   - [x] BUG: there was an error when company count is zero
 ## Recipe Page

@@ -61,7 +61,7 @@ namespace product_and_receipt.Models.DBs
                     + $" ); "
                     + $" INSERT INTO {DBInfoTable.TABLE} ({DBInfoTable.FIELD_DATA}) VALUES (?); "
                     + $" ALTER TABLE {CompanyTable.TABLE} "
-                    + $" ADD {CompanyTable.FIELD_REMARK} varchar(255); ";
+                    + $" ADD {CompanyTable.FIELD_REMARK} varchar(255) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL; ";
 
                 DoExecuteNonQuery(sql, DBVersion.v2);
 
