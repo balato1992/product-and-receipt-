@@ -40,13 +40,14 @@ export function MaterialPage() {
     useEffect(() => {
         Methods.cusFetchJson('companyInfo?pageSize=999999&pageIndex=0&searchText=',
             result => {
-                if (result.data.length >= 0) {
+                if (result.data.length > 0) {
 
                     let companies = {};
                     for (let datum of result.data) {
 
                         companies[datum.uid] = datum.name;
                     }
+
                     let firstItemUid = result.data[0].uid;
 
                     setTableColumns([

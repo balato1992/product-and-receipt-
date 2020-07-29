@@ -77,7 +77,7 @@ export function CusTable(props) {
 
         let data = Methods.jsonCopyObject(tableData);
 
-        if (searchText && searchText != "") {
+        if (searchText && searchText !== "") {
 
             data = data.filter((datum) => {
 
@@ -109,7 +109,7 @@ export function CusTable(props) {
                 let v1 = String(a[field]);
                 let v2 = String(b[field]);
 
-                if (sortedFieldAndOrder.order == SortOrder.Desc) {
+                if (sortedFieldAndOrder.order === SortOrder.Desc) {
                     v1 = String(b[field]);
                     v2 = String(a[field]);
                 }
@@ -192,9 +192,9 @@ export function CusTable(props) {
     function getRowType(data) {
 
         let currentType = RowDisplayType.View;
-        if (selectedRowAndMode != undefined) {
+        if (selectedRowAndMode !== undefined) {
 
-            if (selectedRowAndMode.rowData == data) {
+            if (selectedRowAndMode.rowData === data) {
                 switch (selectedRowAndMode.mode) {
                     case SelectedRowMode.AddMode:
                         currentType = RowDisplayType.Add;
@@ -204,6 +204,8 @@ export function CusTable(props) {
                         break;
                     case SelectedRowMode.DeleteMode:
                         currentType = RowDisplayType.Delete;
+                        break;
+                    default:
                         break;
                 }
             } else {
@@ -246,7 +248,7 @@ export function CusTable(props) {
 
                 list.push(
                     <CusTableRow
-                        style={{ backgroundColor: (++count % 2 == 0) ? Methods.getBgcolor() : '' }}
+                        style={{ backgroundColor: (++count % 2 === 0) ? Methods.getBgcolor() : '' }}
                         usingReceiptDetail={usingReceiptDetail}
                         key={item.uid}
                         columns={columns}
@@ -301,12 +303,12 @@ export function CusTable(props) {
         let newOrder = SortOrder.Asc;
 
         if (sortedFieldAndOrder !== undefined
-            && sortedFieldAndOrder.field == field) {
+            && sortedFieldAndOrder.field === field) {
 
-            if (sortedFieldAndOrder.order == SortOrder.Asc) {
+            if (sortedFieldAndOrder.order === SortOrder.Asc) {
                 newOrder = SortOrder.Desc;
             }
-            else if (sortedFieldAndOrder.order == SortOrder.Desc) {
+            else if (sortedFieldAndOrder.order === SortOrder.Desc) {
                 newOrder = SortOrder.None;
             }
         }
@@ -363,9 +365,9 @@ export function CusTable(props) {
                                     <ButtonBase onClick={() => { headerClick(item.field); }}>
                                         <b>{item.title}</b>
                                         {(sortedFieldAndOrder !== undefined
-                                            && sortedFieldAndOrder.field == item.field
+                                            && sortedFieldAndOrder.field === item.field
                                             && sortedFieldAndOrder.order !== SortOrder.None)
-                                            ? ((sortedFieldAndOrder.order == SortOrder.Asc)
+                                            ? ((sortedFieldAndOrder.order === SortOrder.Asc)
                                                 ? <Icon>arrow_upward</Icon>
                                                 : <Icon>arrow_downward</Icon>)
                                             : null}

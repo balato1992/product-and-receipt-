@@ -61,7 +61,12 @@ namespace product_and_receipt.Models.DBs
                     + $" ); "
                     + $" INSERT INTO {DBInfoTable.TABLE} ({DBInfoTable.FIELD_DATA}) VALUES (?); "
                     + $" ALTER TABLE {CompanyTable.TABLE} "
-                    + $" ADD {CompanyTable.FIELD_REMARK} varchar(255) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL; ";
+                    + $" ADD {CompanyTable.FIELD_REMARK} varchar(255) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL; "
+
+                    + $" EXEC sp_RENAME 'RECEIPT_INFO.DATE' , 'DATE_2', 'COLUMN'; "
+                    + $" ALTER TABLE RECEIPT_INFO ADD RECEIPT_DATE varchar(255) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL; "
+                    + $" EXEC('UPDATE RECEIPT_INFO SET RECEIPT_DATE = convert(varchar, DATE_2, 111)'); "
+                    + $" ALTER TABLE RECEIPT_INFO DROP COLUMN DATE_2; ";
 
                 DoExecuteNonQuery(sql, DBVersion.v2);
 

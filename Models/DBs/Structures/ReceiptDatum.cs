@@ -7,15 +7,15 @@ namespace product_and_receipt.Models.DBs.Structures
     {
         public string Id { get; set; }
         public string Payee { get; set; }
-        public DateTime Date { get; set; }
+        public string ReceiptDate { get; set; }
 
         public List<ReceiptItemDatum> Items { get; set; }
 
-        public ReceiptDatum(string id, string payee, DateTime date)
+        public ReceiptDatum(string id, string payee, string receiptDate)
         {
             Id = id;
             Payee = payee;
-            Date = date;
+            ReceiptDate = receiptDate;
             Items = new List<ReceiptItemDatum>();
         }
 

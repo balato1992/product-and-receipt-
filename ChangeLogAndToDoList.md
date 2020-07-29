@@ -6,6 +6,7 @@
   - [ ] 可搜尋項目與價格
   - [ ] TABLE 特殊格式優化
   - [x] add license
+  - [ ] backup database
 
   - [ ] 20200517 by Chad, turn showDetail to false when the row is disabled, maybe there has a better way to slove this
   - [ ] 起始頁面讀取(淡入)
@@ -23,12 +24,14 @@
 ## Company Page
   - [X] Add 'Remark' Field
 ## Material Page
-## Recipe Page
-  - [ ] save undone recipe
+## Receipt Page
+  - [ ] save undone receipt
+  - [x] 2020/07/29 Date format change to string
 
 ## Bugs
+  - [x] 2020/07/29 Material Page: result.data.length should bigger than 0 not bigger and equal
   - [x] 2020/07/29 Table Component: numeric can't display appropriately
-  - [x] Recipe Page: there are not real-time items after modify an item
+  - [x] Receipt Page: there are not real-time items after modify an item
   - [x] Material Page: there was an error when company count is zero
 
 

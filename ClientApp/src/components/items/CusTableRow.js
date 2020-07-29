@@ -109,9 +109,9 @@ export function CusTableRow(props) {
         }
     }
     function getView_Row() {
-        let isEditing = displayType == RowDisplayType.Add || displayType == RowDisplayType.Modify;
-        let isDeleting = displayType == RowDisplayType.Delete;
-        let isDisabled = displayType == RowDisplayType.Disabled;
+        let isEditing = displayType === RowDisplayType.Add || displayType === RowDisplayType.Modify;
+        let isDeleting = displayType === RowDisplayType.Delete;
+        let isDisabled = displayType === RowDisplayType.Disabled;
 
         let data = isEditing ? changedData : oriData;
 
@@ -147,7 +147,7 @@ export function CusTableRow(props) {
                             <b>
                                 {columns.map((item, index) => (
                                     <React.Fragment key={getColumnKey(item)}>
-                                        {index == 0 ? "" : ","}{item.title}: {data[item.field]}
+                                        {index === 0 ? "" : ","}{item.title}: {data[item.field]}
                                     </React.Fragment>
                                 ))}
                             </b>?
@@ -183,7 +183,7 @@ export function CusTableRow(props) {
     function isShowReceiptDetail() {
 
         // 20200517 by Chad, turn showReceiptDetail to false when the row is disabled, maybe there has a better way to slove this
-        if (displayType == RowDisplayType.Disabled) {
+        if (displayType === RowDisplayType.Disabled) {
             setTimeout(() => {
                 setShowReceiptDetail(false);
             }, 1);
@@ -237,7 +237,7 @@ export function CusTableRow(props) {
         return <React.Fragment>
             {
                 data.items.map((item, index) => (
-                    <TableRow key={item.uidForView} style={{ backgroundColor: (index % 2 == 1) ? Methods.getBgcolor() : '' }}>
+                    <TableRow key={item.uidForView} style={{ backgroundColor: (index % 2 === 1) ? Methods.getBgcolor() : '' }}>
                         <TableCell>
                             {isEditing
                                 ? (<TextField name="productName" fullWidth defaultValue={item.productName}
@@ -281,7 +281,7 @@ export function CusTableRow(props) {
 
 
     function getEditable() {
-        return displayType == RowDisplayType.Add || displayType == RowDisplayType.Modify;
+        return displayType === RowDisplayType.Add || displayType === RowDisplayType.Modify;
     }
 
     function handleChange(event) {

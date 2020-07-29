@@ -12,7 +12,7 @@ namespace product_and_receipt.Models.DBs.Tables
         private static string FIELD_UID => "UID";
         private static string FIELD_ID => "ID";
         private static string FIELD_PAYEE => "PAYEE";
-        private static string FIELD_DATE => "DATE";
+        private static string FIELD_RECEIPT_DATE => "RECEIPT_DATE";
 
         private static string ITEMS_TABLE => "RECEIPT_ITEM_INFO";
         private static string ITEMS_FIELD_UID => "UID";
@@ -58,7 +58,7 @@ namespace product_and_receipt.Models.DBs.Tables
             ConvertToInt(reader[prefix + FIELD_UID], out int uid);
             ConvertToString(reader[prefix + FIELD_ID], out string id);
             ConvertToString(reader[prefix + FIELD_PAYEE], out string payee);
-            ConvertToDateTime(reader[prefix + FIELD_DATE], out DateTime date);
+            ConvertToString(reader[prefix + FIELD_RECEIPT_DATE], out string date);
 
             return new ReceiptDatumWithUid(uid, id, payee, date);
         }
@@ -75,13 +75,13 @@ namespace product_and_receipt.Models.DBs.Tables
 
         public int Insert(ReceiptDatum datum)
         {
-            List<object> parameter = new List<object>() { datum.Id, datum.Payee, datum.Date };
+            List<object> parameter = new List<object>() { datum.Id, datum.Payee, datum.ReceiptDate };
             const string tempTable = "@TEMP_OUTPUT";
             const string tempField = "TMP_UID";
 
             string sql =
                 $" DECLARE {tempTable} TABLE ({tempField} int); "
-                + $" INSERT INTO {TABLE} ({FIELD_ID}, {FIELD_PAYEE}, {FIELD_DATE})"
+                + $" INSERT INTO {TABLE} ({FIELD_ID}, {FIELD_PAYEE}, {FIELD_RECEIPT_DATE})"
                 + $" OUTPUT INSERTED.{FIELD_UID} INTO {tempTable}({tempField})"
                 + $" VALUES (?, ?, ?); ";
 
@@ -114,9 +114,9 @@ namespace product_and_receipt.Models.DBs.Tables
         public void Update(ReceiptDatumWithUid datum)
         {
             string sql =
-                $"UPDATE {TABLE} SET {FIELD_ID}=?,{FIELD_PAYEE}=?,{FIELD_DATE}=? WHERE {FIELD_UID}=?; "
+                $"UPDATE {TABLE} SET {FIELD_ID}=?,{FIELD_PAYEE}=?,{FIELD_RECEIPT_DATE}=? WHERE {FIELD_UID}=?; "
                 + $"DELETE FROM {ITEMS_TABLE} WHERE {ITEMS_FIELD_RECEIPT_UID}=?; ";
-            List<object> parameter = new List<object>() { datum.Id, datum.Payee, datum.Date, datum.Uid, datum.Uid };
+            List<object> parameter = new List<object>() { datum.Id, datum.Payee, datum.ReceiptDate, datum.Uid, datum.Uid };
 
             foreach (var item in datum.Items)
             {

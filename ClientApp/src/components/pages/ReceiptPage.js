@@ -6,32 +6,34 @@ import * as Methods from '../../Methods'
 export function ReceiptPage() {
     const baseUrl = "ReceiptInfo";
 
-/*
-    public class ReceiptDatumWithUid
-        public int Uid { get; set; }
-    public class ReceiptDatum
-        public string Id { get; set; }
-        public string Payee { get; set; }
-        public DateTime Date { get; set; }
-        public List<ReceiptItemDatum> Items { get; set; }
-
-    public class ReceiptItemDatum
-        public string ProductName { get; set; }
-        public decimal Price { get; set; }
-        public decimal Number { get; set; }
-
- */
+    /*
+        public class ReceiptDatumWithUid
+            public int Uid { get; set; }
+        public class ReceiptDatum
+            public string Id { get; set; }
+            public string Payee { get; set; }
+            public string ReceiptDate { get; set; }
+            public List<ReceiptItemDatum> Items { get; set; }
+    
+        public class ReceiptItemDatum
+            public string ProductName { get; set; }
+            public decimal Price { get; set; }
+            public decimal Number { get; set; }
+    
+     */
     function getDate() {
         let date = new Date();
         date.setHours(date.getHours() + 8);
 
-        return date.toISOString().substr(0, 19);
+        // console.log(date.toISOString());
+
+        return date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
     }
 
     let columns = [
         { title: '編號', field: 'id', initialEditValue: '-', emptyValue: '' },
         { title: '客戶名稱', field: 'payee', initialEditValue: '-', emptyValue: '' },
-        { title: '日期', field: 'date', type: 'date', initialEditValue: getDate, emptyValue: '' },
+        { title: '日期', field: 'receiptdate', initialEditValue: getDate, emptyValue: '' },
         //{ title: '合計', field: 'items', type: 'select' },
     ];
     let getDataCallback = (callback) => {
