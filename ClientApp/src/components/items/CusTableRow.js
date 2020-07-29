@@ -81,6 +81,7 @@ export function CusTableRow(props) {
                 case 'select':
                     return <React.Fragment>{column.selectList[datum[column.field]]}</React.Fragment>;
                 case 'numeric':
+                    return <React.Fragment>{datum[column.field]}</React.Fragment>;
                 default:
                     return splitStringToView(datum[column.field]);
             }

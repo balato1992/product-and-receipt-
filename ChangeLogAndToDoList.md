@@ -23,13 +23,18 @@
 ## Company Page
   - [X] Add 'Remark' Field
 ## Material Page
-  - [x] BUG: there was an error when company count is zero
 ## Recipe Page
-  - [x] BUG: 修改項目後 的刷新 非即時資料
   - [ ] save undone recipe
-    
+
+## Bugs
+  - [x] 2020/07/29 Table Component: numeric can't display appropriately
+  - [x] Recipe Page: there are not real-time items after modify an item
+  - [x] Material Page: there was an error when company count is zero
+
 
 # Log
 
+2020/07/29
+1. fix Bug Table Component: numeric can't display appropriately
 2020/07/24
 1. Start this log
