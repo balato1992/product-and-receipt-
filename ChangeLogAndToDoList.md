@@ -37,6 +37,9 @@
 
 # Log
 
+2020/07/30
+1. Add field 'NAME' to 'DB_INFO'
+2. create backup function
 2020/07/29
 1. fix Bug Table Component: numeric can't display appropriately
 2. change date format to string

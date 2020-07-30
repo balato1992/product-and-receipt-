@@ -9,12 +9,12 @@ namespace product_and_receipt.Models
     {
         public delegate void LogFunc(Exception ex, string msgPrefix = null);
 
-        private readonly string _ConnectionString;
+        public readonly string ConnectionString;
         private readonly LogFunc _Log;
 
         protected SqlHelper(string connectionString, LogFunc log = null)
         {
-            _ConnectionString = connectionString;
+            ConnectionString = connectionString;
 
             _Log = log;
         }
@@ -22,7 +22,7 @@ namespace product_and_receipt.Models
         #region command
         protected void DoCommand(string sql, Action<SqlCommand> action, params object[] parameters)
         {
-            DoCommand(_Log, _ConnectionString, sql, action, parameters);
+            DoCommand(_Log, ConnectionString, sql, action, parameters);
         }
         protected void DoExecuteNonQuery(string sql, params object[] parameters)
         {
@@ -30,6 +30,13 @@ namespace product_and_receipt.Models
             {
                 cmd.ExecuteNonQuery();
             }, parameters);
+        }
+        protected void DoExecuteNonQuery_NoTrans(string sql, params object[] parameters)
+        {
+            DoCommand_NoTrans(_Log, ConnectionString, sql, (SqlCommand cmd) =>
+             {
+                 cmd.ExecuteNonQuery();
+             }, parameters);
         }
         protected int DoReadAll(string sql, Action<SqlDataReader> actionReader, params object[] parameters)
         {
@@ -103,6 +110,35 @@ namespace product_and_receipt.Models
                         log?.Invoke(ex2);
                         throw ex2;
                     }
+                    throw ex;
+                }
+            }
+            catch (Exception ex)
+            {
+                log?.Invoke(ex, $"@@ connectionString: '{connectionString}', sql: '{sql}' @@");
+
+                throw ex;
+            }
+        }
+        private static void DoCommand_NoTrans(LogFunc log, string connectionString, string sql, Action<SqlCommand> postAction, params object[] parameters)
+        {
+            try
+            {
+                using var connection = new SqlConnection(connectionString);
+
+                sql = ReplaceQuestionMark(sql);
+                using var cmd = new SqlCommand(sql, connection);
+
+                connection.Open();
+                try
+                {
+                    AddParams_ReplaceQuestionMark(cmd, parameters);
+
+                    postAction?.Invoke(cmd);
+                }
+                catch (Exception ex)
+                {
+                    log?.Invoke(ex, $"-@@ connectionString: '{connectionString}', sql: '{sql}' @@");
                     throw ex;
                 }
             }

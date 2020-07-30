@@ -57,9 +57,11 @@ namespace product_and_receipt.Models.DBs
             if (version == DBVersion.v1)
             {
                 string sql = $" CREATE TABLE {DBInfoTable.TABLE} ( "
-                    + $" {DBInfoTable.FIELD_DATA} varchar(255) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL "
+                    + $" {DBInfoTable.FIELD_NAME} varchar(100) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL, "
+                    + $" {DBInfoTable.FIELD_VALUE} varchar(255) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL, "
+                    + $" CONSTRAINT DB_INFO_PK PRIMARY KEY({DBInfoTable.FIELD_NAME}) "
                     + $" ); "
-                    + $" INSERT INTO {DBInfoTable.TABLE} ({DBInfoTable.FIELD_DATA}) VALUES (?); "
+                    + $" INSERT INTO {DBInfoTable.TABLE} ({DBInfoTable.FIELD_NAME}, {DBInfoTable.FIELD_VALUE}) VALUES ('Version', ?); "
                     + $" ALTER TABLE {CompanyTable.TABLE} "
                     + $" ADD {CompanyTable.FIELD_REMARK} varchar(255) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL; "
 

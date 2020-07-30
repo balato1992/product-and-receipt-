@@ -14,8 +14,9 @@ namespace product_and_receipt
         {
             Configuration = configuration;
 
+            string contentRoot = configuration.GetValue<string>(WebHostDefaults.ContentRootKey);
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            GlobalInstance.Initialize(connectionString);
+            GlobalInstance.Initialize(contentRoot, connectionString);
         }
 
         public IConfiguration Configuration { get; }

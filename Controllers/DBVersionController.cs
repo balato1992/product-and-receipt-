@@ -36,6 +36,13 @@ namespace product_and_receipt.Controllers
 
                 return true;
             }
+            if (value == "1122")
+            {
+                GlobalInstance.DB.DBInfoTable.Backup(GlobalInstance.ContentRoot);
+                GlobalInstance.DB.RecordTable.Insert("Backup DB Done", null);
+
+                return true;
+            }
             return false;
         }
     }
