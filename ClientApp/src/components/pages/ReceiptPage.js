@@ -33,7 +33,7 @@ export function ReceiptPage() {
     let columns = [
         { title: '編號', field: 'id', initialEditValue: '-', emptyValue: '' },
         { title: '客戶名稱', field: 'payee', initialEditValue: '-', emptyValue: '' },
-        { title: '日期', field: 'receiptdate', initialEditValue: getDate, emptyValue: '' },
+        { title: '日期', field: 'receiptDate', initialEditValue: getDate, emptyValue: '' },
         //{ title: '合計', field: 'items', type: 'select' },
     ];
     let getDataCallback = (callback) => {

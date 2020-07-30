@@ -2,8 +2,6 @@
 # TODO 
   - [ ] auto complete text of Material and Receipt Page (提示歷史字串)
   - [ ] 字元提示收據項目
-  - [ ] 可搜尋項目與價格
-  - [ ] TABLE 特殊格式優化
   - [x] add license
   - [x] backup database
 
@@ -18,7 +16,8 @@
   - [x] sort
   - [x] page
   - [X] text fields transform to multiline
-  - [ ] merge detail
+  - [X] search detail
+  - [ ] refine receipt detail as general methods
   
 ## Company Page
   - [X] Add 'Remark' Field
@@ -40,6 +39,8 @@
 1. Add field 'NAME' to 'DB_INFO'
 2. Create backup function
 3. Create timer of auto backup 
+4. Implement search the receipt detail
+5. ReceiptPage: fix field 'receiptDate' bug
 
 2020/07/29
 1. fix Bug Table Component: numeric can't display appropriately

@@ -79,25 +79,46 @@ export function CusTable(props) {
 
         if (searchText && searchText !== "") {
 
+            const checkContain = (searchText, value) => {
+
+                value = String(value).toLowerCase();
+                searchText = String(searchText).toLowerCase();
+
+                return (value.indexOf(searchText) !== -1);
+            };
+
             data = data.filter((datum) => {
 
                 for (let column of columns) {
-                    let value = datum[column.field];
 
+                    let value;
                     switch (column.type) {
                         case 'select':
                             value = column.selectList[datum[column.field]];
                             break;
                         default:
+                            value = datum[column.field];
                             break;
                     }
 
-                    value = String(value).toLowerCase();
-
-                    if (value.indexOf(searchText.toLowerCase()) !== -1) {
+                    if (checkContain(searchText, value)) {
                         return true;
                     }
                 }
+
+                if (usingReceiptDetail) {
+                    for (let item of datum.items) {
+                        let columns = ['productName', 'price', 'productNumber'];
+
+                        for (let column of columns) {
+
+                            if (checkContain(searchText, item[column])) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+
                 return false;
             });
         }
@@ -322,11 +343,10 @@ export function CusTable(props) {
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
-    const handleChangeRowsPerPage = (event) => {
+    const handleChangeRowsPerPage = event => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-
 
     return (
         <Paper>
@@ -347,8 +367,7 @@ export function CusTable(props) {
                                         ),
                                     }} />
                             </TableCell>
-                            <TableCell>
-                            </TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
