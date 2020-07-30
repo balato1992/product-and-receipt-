@@ -1,12 +1,11 @@
 
 # TODO 
-
   - [ ] auto complete text of Material and Receipt Page (提示歷史字串)
   - [ ] 字元提示收據項目
   - [ ] 可搜尋項目與價格
   - [ ] TABLE 特殊格式優化
   - [x] add license
-  - [ ] backup database
+  - [x] backup database
 
   - [ ] 20200517 by Chad, turn showDetail to false when the row is disabled, maybe there has a better way to slove this
   - [ ] 起始頁面讀取(淡入)
@@ -39,7 +38,8 @@
 
 2020/07/30
 1. Add field 'NAME' to 'DB_INFO'
-2. create backup function
+2. Create backup function
+3. Create timer of auto backup 
 
 2020/07/29
 1. fix Bug Table Component: numeric can't display appropriately

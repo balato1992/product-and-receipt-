@@ -61,7 +61,7 @@ namespace product_and_receipt.Models.DBs
                     + $" {DBInfoTable.FIELD_VALUE} varchar(255) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL, "
                     + $" CONSTRAINT DB_INFO_PK PRIMARY KEY({DBInfoTable.FIELD_NAME}) "
                     + $" ); "
-                    + $" INSERT INTO {DBInfoTable.TABLE} ({DBInfoTable.FIELD_NAME}, {DBInfoTable.FIELD_VALUE}) VALUES ('Version', ?); "
+                    + $" INSERT INTO {DBInfoTable.TABLE} ({DBInfoTable.FIELD_NAME}, {DBInfoTable.FIELD_VALUE}) VALUES ('VERSION', ?); "
                     + $" ALTER TABLE {CompanyTable.TABLE} "
                     + $" ADD {CompanyTable.FIELD_REMARK} varchar(255) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL; "
 
