@@ -1,10 +1,11 @@
 
 # TODO 
   - [ ] auto complete of Material Page
-  - [ ] autocomplete of all product of Receipt Page
   - [x] add license
   - [x] backup database
-
+  
+  - [ ] BUG 2020/07/31 Table Component: autocomplete clear will generate null value which is not valid for db
+  - [ ] Receipt Page: save undone receipt
   - [ ] 20200517 by Chad, turn showDetail to false when the row is disabled, maybe there has a better way to slove this
   - [ ] 起始頁面讀取(淡入)
   - [ ] 欄位防呆
@@ -23,9 +24,9 @@
   - [X] Add 'Remark' Field
 ## Material Page
 ## Receipt Page
-  - [ ] save undone receipt
   - [x] 2020/07/29 Date format change to string
-  - [x] 2020/07/31 Auto complete of Receipt ProductName
+  - [x] 2020/07/31 Autocomplete of Receipt ProductName
+  - [x] 2020/07/31 list of all productNames
 
 ## Bugs
   - [x] 2020/07/29 Material Page: result.data.length should bigger than 0 not bigger and equal
@@ -38,6 +39,7 @@
 
 2020/07/31
 1. Implement autocomplete of Receipt ProductName
+2. Implement list of all productNames
 
 2020/07/30
 1. Add field 'NAME' to 'DB_INFO'

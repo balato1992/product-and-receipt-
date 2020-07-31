@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
+import Grid from '@material-ui/core/Grid';
+
 import { CusTable } from '../items/CusTable';
+import { CusDialogList } from '../items/CusDialogList';
 import * as Methods from '../../Methods'
 
 export function ReceiptPage() {
@@ -81,6 +84,14 @@ export function ReceiptPage() {
 
     return (
         <div>
+
+            <Grid container justify="flex-end">
+                <Grid item>
+                    <CusDialogList title={'項目列表'} items={productNames}></CusDialogList>
+                </Grid>
+            </Grid>
+
+            <br/>
             <CusTable columns={columns} getDataCallback={getDataCallback} editActions={editActions}
                 usingReceiptDetail={true} usingReceiptDetailProductNames={productNames}></CusTable>
         </div>
