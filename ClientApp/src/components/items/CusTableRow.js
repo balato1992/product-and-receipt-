@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -21,6 +21,7 @@ import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
+import { CusAutoComplete } from './CusAutoComplete';
 import * as Methods from '../../Methods';
 
 
@@ -37,7 +38,7 @@ export const SelectedRowMode = {
     DeleteMode: 2
 }
 const ReceiptItemActionType = {
-    Handel: 0,
+    Handle: 0,
     Add: 1,
     Delete: 2
 }
@@ -53,6 +54,7 @@ export function CusTableRow(props) {
     const displayType = props.displayType;
     const oriData = props.inputData;
     const usingReceiptDetail = props.usingReceiptDetail;
+    const usingReceiptDetailProductNames = props.usingReceiptDetailProductNames;
 
     const confirmAction = props.confirmAction;
     const onRowSelected = props.onRowSelected;
@@ -61,6 +63,7 @@ export function CusTableRow(props) {
     const [changedData, setChangedData] = useState(Methods.jsonCopyObject(props.inputData));
 
     const [showReceiptDetail, setShowReceiptDetail] = useState(false);
+
 
     function splitStringToView(value) {
         if (value == null) {
@@ -203,18 +206,15 @@ export function CusTableRow(props) {
 
         return sum;
     }
-    function receiptItemActionClick(action, index, event) {
+    function receiptItemActionClick(action, index, handleInfo) {
 
         let newInputData = Methods.jsonCopyObject(changedData);
         let newItems = [...newInputData.items];
 
         switch (action) {
-            case ReceiptItemActionType.Handel:
-                const target = event.target;
-                const value = target.value;
-                const name = target.name;
+            case ReceiptItemActionType.Handle:
 
-                newItems[index][name] = value;
+                newItems[index][handleInfo.name] = handleInfo.value;
                 break;
             case ReceiptItemActionType.Add:
                 newItems.unshift({ uidForView: Methods.cusGetUidForView(), productName: "", price: 0, productNumber: 1 });
@@ -231,6 +231,15 @@ export function CusTableRow(props) {
         newInputData.items = newItems;
         setChangedData(newInputData);
     }
+    function receiptItemActionClickHandle(index, name, value) {
+
+        receiptItemActionClick(ReceiptItemActionType.Handle, index, {
+            name: name,
+            value: value
+        });
+    }
+
+
     function getView_ReceiptItemRow(isEditing) {
         let data = isEditing ? changedData : oriData;
 
@@ -240,15 +249,21 @@ export function CusTableRow(props) {
                     <TableRow key={item.uidForView} style={{ backgroundColor: (index % 2 === 1) ? Methods.getBgcolor() : '' }}>
                         <TableCell>
                             {isEditing
-                                ? (<TextField name="productName" fullWidth defaultValue={item.productName}
-                                    onChange={(e) => { receiptItemActionClick(ReceiptItemActionType.Handel, index, e); }} />)
+                                ? (<React.Fragment>
+                                    <CusAutoComplete
+                                        value={item.productName}
+                                        options={usingReceiptDetailProductNames}
+                                        handler={(value) => {
+                                            receiptItemActionClickHandle(index, 'productName', value)
+                                        }}></CusAutoComplete>
+                                </React.Fragment>)
                                 : (<React.Fragment>{item.productName}</React.Fragment>)
                             }
                         </TableCell>
                         <TableCell>
                             {isEditing
                                 ? (<TextField name="price" fullWidth type="number" defaultValue={item.price}
-                                    onChange={(e) => { receiptItemActionClick(ReceiptItemActionType.Handel, index, e); }} />)
+                                    onChange={(e) => { receiptItemActionClickHandle(index, e.target.name, e.target.value); }} />)
                                 : (<React.Fragment>{item.price}</React.Fragment>)
                             }
                         </TableCell>
@@ -256,7 +271,7 @@ export function CusTableRow(props) {
                         <TableCell>
                             {isEditing
                                 ? (<TextField name="productNumber" fullWidth type="number" defaultValue={item.productNumber}
-                                    onChange={(e) => { receiptItemActionClick(ReceiptItemActionType.Handel, index, e); }} />)
+                                    onChange={(e) => { receiptItemActionClickHandle(index, e.target.name, e.target.value); }} />)
                                 : (<React.Fragment>{item.productNumber}</React.Fragment>)
                             }
                         </TableCell>

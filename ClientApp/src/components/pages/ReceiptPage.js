@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { CusTable } from '../items/CusTable';
 import * as Methods from '../../Methods'
 
 export function ReceiptPage() {
     const baseUrl = "ReceiptInfo";
+
+    const [productNames, setProductNames] = useState([]);
 
     /*
         public class ReceiptDatumWithUid
@@ -43,14 +45,22 @@ export function ReceiptPage() {
         Methods.cusFetchJson(url,
             (result) => {
 
+                let productNames = [];
                 for (let datum of result) {
 
                     datum.uidForView = Methods.cusGetUidForView();
 
                     for (let item of datum.items) {
                         item.uidForView = Methods.cusGetUidForView();
+
+                        if (productNames.indexOf(item.productName) === -1) {
+                            productNames.push(item.productName);
+                        }
                     }
                 }
+
+                productNames.sort();
+                setProductNames(productNames);
                 callback(result);
             });
     };
@@ -71,7 +81,8 @@ export function ReceiptPage() {
 
     return (
         <div>
-            <CusTable columns={columns} getDataCallback={getDataCallback} editActions={editActions} usingReceiptDetail={true}></CusTable>
+            <CusTable columns={columns} getDataCallback={getDataCallback} editActions={editActions}
+                usingReceiptDetail={true} usingReceiptDetailProductNames={productNames}></CusTable>
         </div>
     );
 }

@@ -44,6 +44,7 @@ export function CusTable(props) {
     const getDataCallback = props.getDataCallback;
     const editActions = props.editActions;
     const usingReceiptDetail = props.usingReceiptDetail;
+    const usingReceiptDetailProductNames = props.usingReceiptDetailProductNames;
 
     let getData = () => {
         if (getDataCallback) {
@@ -271,6 +272,7 @@ export function CusTable(props) {
                     <CusTableRow
                         style={{ backgroundColor: (++count % 2 === 0) ? Methods.getBgcolor() : '' }}
                         usingReceiptDetail={usingReceiptDetail}
+                        usingReceiptDetailProductNames={usingReceiptDetailProductNames}
                         key={item.uid}
                         columns={columns}
                         displayType={getRowType(item)}
@@ -405,6 +407,7 @@ export function CusTable(props) {
                         {showAddItem &&
                             <CusTableRow
                                 usingReceiptDetail={usingReceiptDetail}
+                                usingReceiptDetailProductNames={usingReceiptDetailProductNames}
                                 columns={columns}
                                 displayType={getRowType(addRowItem)}
                                 inputData={addRowItem}

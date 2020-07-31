@@ -1,7 +1,7 @@
 
 # TODO 
-  - [ ] auto complete text of Material and Receipt Page (提示歷史字串)
-  - [ ] 字元提示收據項目
+  - [ ] auto complete of Material Page
+  - [ ] autocomplete of all product of Receipt Page
   - [x] add license
   - [x] backup database
 
@@ -25,6 +25,7 @@
 ## Receipt Page
   - [ ] save undone receipt
   - [x] 2020/07/29 Date format change to string
+  - [x] 2020/07/31 Auto complete of Receipt ProductName
 
 ## Bugs
   - [x] 2020/07/29 Material Page: result.data.length should bigger than 0 not bigger and equal
@@ -34,6 +35,9 @@
 
 
 # Log
+
+2020/07/31
+1. Implement autocomplete of Receipt ProductName
 
 2020/07/30
 1. Add field 'NAME' to 'DB_INFO'
