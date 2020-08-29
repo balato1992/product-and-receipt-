@@ -3,6 +3,7 @@
   - [ ] auto complete of Material Page
   - [x] add license
   - [x] backup database
+  - [ ] icon of sort has error, and sort didn't work properly
   
   - [ ] BUG 2020/07/31 Table Component: autocomplete clear will generate null value which is not valid for db
   - [ ] Receipt Page: save undone receipt
@@ -36,6 +37,10 @@
 
 
 # Log
+
+2020/08/29 v1.0.1
+1. fix bug that won't insert backup time
+2. update version
 
 2020/07/31
 1. Implement autocomplete of Receipt ProductName

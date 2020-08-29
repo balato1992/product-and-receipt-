@@ -52,7 +52,7 @@ namespace product_and_receipt.Models.DBs.Tables
         {
             string sql = $"SELECT * FROM {TABLE} WHERE {FIELD_NAME}='{NAME_BACKUP_PERIOD_HOURS}'";
 
-            int period = 24 * 5;
+            int period = 24 * 3;
             DoReadAll(sql,
                 (SqlDataReader reader) =>
                 {
@@ -76,7 +76,7 @@ namespace product_and_receipt.Models.DBs.Tables
         {
             string time = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             string sql = $"IF (EXISTS "
-                + $" (SELECT COUNT(*) FROM {TABLE} WHERE {FIELD_NAME}='{NAME_BACKUP_DATE}')) "
+                + $" (SELECT * FROM {TABLE} WHERE {FIELD_NAME}='{NAME_BACKUP_DATE}')) "
                 + $" BEGIN "
                 + $" UPDATE {TABLE} SET {FIELD_VALUE}='{time}' WHERE {FIELD_NAME}='{NAME_BACKUP_DATE}'"
                 + $" END "
