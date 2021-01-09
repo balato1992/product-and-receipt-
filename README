@@ -13,4 +13,6 @@
         安裝 database
             SQL Server express
             SSMS
-        
+
+    設定 IIS
+        設定 appsettings.json: ConnectionStrings-> DefaultConnection

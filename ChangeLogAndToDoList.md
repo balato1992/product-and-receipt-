@@ -4,7 +4,8 @@
 - [ ] auto complete of Material Page
 - [x] add license
 - [x] backup database
-- [ ] icon of sort has error, and sort didn't work properly
+- [ ] icon of sorting display incorrectly, and sorting didn't work properly
+- [ ] check database connection at beginning
   
 - [ ] BUG 2020/07/31 Table Component: autocomplete clear will generate null value which is not valid for db
 - [ ] Receipt Page: save undone receipt
